@@ -3,15 +3,17 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
-from subarranjo import forca_bruta, divisao_conquista
+from subarranjo import forca_bruta, divisao_conquista, linear
 
 
 def testar(nome, valores, esperado):
     resultado_bruta = forca_bruta(valores)
     resultado_divisao = divisao_conquista(valores)
+    resultado_linear = linear(valores)
 
     assert resultado_bruta == esperado
     assert resultado_divisao == esperado
+    assert resultado_linear == esperado
 
     print(f"{nome}: OK")
 

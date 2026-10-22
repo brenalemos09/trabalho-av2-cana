@@ -85,3 +85,22 @@ def divisao_conquista(valores):
         raise ValueError("O vetor não pode estar vazio.")
 
     return dividir(valores, 0, len(valores) - 1)
+def linear(valores):
+    if not valores:
+        raise ValueError("O vetor não pode estar vazio.")
+
+    soma_atual = valores[0]
+    inicio_atual = 0
+    melhor = (valores[0], 0, 0)
+
+    for fim in range(1, len(valores)):
+        if valores[fim] >= soma_atual + valores[fim]:
+            soma_atual = valores[fim]
+            inicio_atual = fim
+        else:
+            soma_atual += valores[fim]
+
+        candidato = (soma_atual, inicio_atual, fim)
+        melhor = melhor_resultado(melhor, candidato)
+
+    return melhor
