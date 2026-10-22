@@ -1,0 +1,16 @@
+CONFIGURAÇÃO DA MÁQUINA - MEDIÇÕES EXPERIMENTAIS
+
+Sistema operacional: Windows 10 Home Single Language
+Arquitetura: 64 bits
+Tipo de sistema: x64-based PC
+Processador: 11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+Memória RAM: aproximadamente 16 GB
+Python: 3.13.15
+
+As medições de tempo foram realizadas nesta máquina.
+
+Para cada tamanho de entrada, cada algoritmo foi executado 5 vezes.
+O tempo médio foi calculado a partir dessas 5 execuções.
+
+Tamanhos utilizados:
+100, 200, 400, 800, 1600, 3200 e 6400.
