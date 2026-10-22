@@ -34,31 +34,31 @@ def forca_bruta(valores):
 
 def melhor_cruzando_meio(valores, esquerda, meio, direita):
     soma = 0
-    melhor_soma_esquerda = float("-inf")
-    melhor_inicio = meio
+    melhor_esquerda = (float("-inf"), meio, meio)
 
     for i in range(meio, esquerda - 1, -1):
         soma += valores[i]
-
-        if soma >= melhor_soma_esquerda:
-            melhor_soma_esquerda = soma
-            melhor_inicio = i
+        candidato = (soma, i, meio)
+        melhor_esquerda = melhor_resultado(
+            melhor_esquerda,
+            candidato,
+        )
 
     soma = 0
-    melhor_soma_direita = float("-inf")
-    melhor_fim = meio + 1
+    melhor_direita = (float("-inf"), meio + 1, meio + 1)
 
     for i in range(meio + 1, direita + 1):
         soma += valores[i]
-
-        if soma > melhor_soma_direita:
-            melhor_soma_direita = soma
-            melhor_fim = i
+        candidato = (soma, meio + 1, i)
+        melhor_direita = melhor_resultado(
+            melhor_direita,
+            candidato,
+        )
 
     return (
-        melhor_soma_esquerda + melhor_soma_direita,
-        melhor_inicio,
-        melhor_fim,
+        melhor_esquerda[0] + melhor_direita[0],
+        melhor_esquerda[1],
+        melhor_direita[2],
     )
 
 
@@ -70,12 +70,23 @@ def dividir(valores, esquerda, direita):
 
     melhor_esquerda = dividir(valores, esquerda, meio)
     melhor_direita = dividir(valores, meio + 1, direita)
+
     melhor_meio = melhor_cruzando_meio(
-        valores, esquerda, meio, direita
+        valores,
+        esquerda,
+        meio,
+        direita,
     )
 
-    melhor = melhor_resultado(melhor_esquerda, melhor_direita)
-    melhor = melhor_resultado(melhor, melhor_meio)
+    melhor = melhor_resultado(
+        melhor_esquerda,
+        melhor_direita,
+    )
+
+    melhor = melhor_resultado(
+        melhor,
+        melhor_meio,
+    )
 
     return melhor
 
@@ -85,6 +96,8 @@ def divisao_conquista(valores):
         raise ValueError("O vetor não pode estar vazio.")
 
     return dividir(valores, 0, len(valores) - 1)
+
+
 def linear(valores):
     if not valores:
         raise ValueError("O vetor não pode estar vazio.")
@@ -100,7 +113,15 @@ def linear(valores):
         else:
             soma_atual += valores[fim]
 
-        candidato = (soma_atual, inicio_atual, fim)
-        melhor = melhor_resultado(melhor, candidato)
+        candidato = (
+            soma_atual,
+            inicio_atual,
+            fim,
+        )
+
+        melhor = melhor_resultado(
+            melhor,
+            candidato,
+        )
 
     return melhor
