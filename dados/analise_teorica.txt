@@ -1,0 +1,186 @@
+ANÁLISE TEÓRICA E EXPERIMENTAL
+TRABALHO PRÁTICO - DIVISÃO E CONQUISTA
+
+
+1. SUBARRANJO MÁXIMO
+
+1.1 Força bruta
+
+A solução de força bruta verifica todos os possíveis intervalos do vetor. Para cada posição inicial, são testadas as possíveis posições finais.
+
+Recorrência:
+T(n) = T(n - 1) + Θ(n)
+
+Complexidade:
+Θ(n²)
+
+O crescimento quadrático ocorre porque a quantidade de intervalos possíveis aumenta aproximadamente com o quadrado do tamanho da entrada.
+
+
+1.2 Divisão e conquista
+
+A solução divide o vetor em duas metades e resolve recursivamente o problema na metade esquerda e na metade direita. Depois, calcula em tempo linear o melhor subarranjo que cruza o meio.
+
+Recorrência:
+T(n) = 2T(n/2) + Θ(n)
+
+Pelo Teorema Mestre:
+a = 2
+b = 2
+f(n) = Θ(n)
+
+Como n^(log_b a) = n, temos:
+
+T(n) = Θ(n log n)
+
+Complexidade:
+Θ(n log n)
+
+
+1.3 Solução linear
+
+A solução linear percorre o vetor apenas uma vez, mantendo a melhor soma encontrada e a melhor soma que termina na posição atual.
+
+Recorrência:
+T(n) = T(n - 1) + Θ(1)
+
+Complexidade:
+Θ(n)
+
+Essa solução apresenta a menor complexidade entre as três implementações do problema.
+
+
+2. PAR DE PONTOS MAIS PRÓXIMOS
+
+2.1 Força bruta
+
+A solução de força bruta calcula a distância entre todos os pares de pontos.
+
+Recorrência:
+T(n) = T(n - 1) + Θ(n)
+
+Complexidade:
+Θ(n²)
+
+
+2.2 Divisão e conquista
+
+Inicialmente, os pontos são ordenados pelas coordenadas x e y. Em seguida, o conjunto é dividido em duas partes.
+
+Cada metade é resolvida recursivamente. Depois disso, é analisada uma faixa ao redor da linha de divisão para verificar se existe um par de pontos ainda mais próximo.
+
+Recorrência:
+T(n) = 2T(n/2) + Θ(n)
+
+Pelo Teorema Mestre:
+
+T(n) = Θ(n log n)
+
+A ordenação inicial também possui complexidade Θ(n log n), portanto a complexidade total permanece:
+
+Θ(n log n)
+
+
+3. JUSTIFICATIVA DAS 7 COMPARAÇÕES
+
+Na etapa da faixa do algoritmo de pontos mais próximos, os pontos são considerados em ordem crescente da coordenada y.
+
+Depois que as duas metades são resolvidas, já existe uma distância mínima δ. Assim, para cada ponto da faixa, não é necessário comparar esse ponto com todos os outros.
+
+Pela propriedade geométrica utilizada no algoritmo clássico do par de pontos mais próximos, dentro da região relevante ao redor de um ponto existe uma quantidade limitada de candidatos que podem estar a uma distância menor que δ.
+
+Essa organização espacial garante que é suficiente comparar cada ponto com, no máximo, os 7 pontos seguintes na ordenação por y.
+
+Por isso, a análise da faixa continua sendo linear em relação ao número de pontos presentes nela, preservando a complexidade Θ(n log n) do algoritmo completo.
+
+
+4. ESCOLHA DO LIMIAR
+
+Na implementação por divisão e conquista do problema dos pontos mais próximos, foi utilizado um limiar para decidir quando interromper a recursão e utilizar força bruta em conjuntos pequenos.
+
+Foram testados os limiares 3, 5, 10, 20 e 50, utilizando 6400 pontos e 5 execuções para cada valor.
+
+Tempos médios obtidos:
+
+Limiar 3: 0,045183 s
+Limiar 5: 0,048322 s
+Limiar 10: 0,042140 s
+Limiar 20: 0,035228 s
+Limiar 50: 0,050604 s
+
+Entre os valores testados, o limiar 20 apresentou o menor tempo médio.
+
+Por esse motivo, o valor 20 foi escolhido como caso-base da implementação final.
+
+O resultado mostra que, para conjuntos pequenos, o custo adicional das chamadas recursivas pode ser maior do que executar diretamente a força bruta. Entretanto, um limiar muito alto também aumenta o trabalho quadrático realizado nos casos-base. O valor 20 apresentou o melhor equilíbrio entre esses custos no experimento realizado.
+
+
+5. METODOLOGIA EXPERIMENTAL
+
+Os algoritmos foram avaliados utilizando entradas de tamanhos:
+
+100, 200, 400, 800, 1600, 3200 e 6400.
+
+Cada algoritmo foi executado 5 vezes para cada tamanho.
+
+O tempo de execução foi medido utilizando time.perf_counter() do Python, e os resultados individuais foram armazenados em arquivos CSV.
+
+Os experimentos foram realizados em uma máquina com:
+
+Sistema operacional: Windows 10 Home Single Language
+Arquitetura: 64 bits
+Processador: 11th Gen Intel(R) Core(TM) i5-11400H @ 2.70 GHz
+Memória RAM: aproximadamente 16 GB
+Python: 3.13.15
+
+
+6. RESULTADOS - SUBARRANJO MÁXIMO
+
+Tempos médios para n = 6400:
+
+Força bruta: 2,268480 s
+Divisão e conquista: 0,014876 s
+Linear: 0,000882 s
+
+Os resultados experimentais são compatíveis com as complexidades teóricas.
+
+A força bruta apresentou o maior crescimento, conforme esperado para Θ(n²).
+
+A solução por divisão e conquista cresceu de forma significativamente mais lenta, comportamento compatível com Θ(n log n).
+
+A solução linear apresentou os menores tempos em todos os tamanhos testados e seu crescimento foi aproximadamente proporcional ao aumento do tamanho da entrada, comportamento esperado para Θ(n).
+
+Para n = 6400, a diferença entre as três abordagens fica bastante evidente, mostrando a importância da escolha do algoritmo para entradas maiores.
+
+
+7. RESULTADOS - PAR DE PONTOS MAIS PRÓXIMOS
+
+Tempos médios para n = 6400:
+
+Força bruta: 5,300008 s
+Divisão e conquista: 0,037711 s
+
+Para esse tamanho, a solução por divisão e conquista foi aproximadamente 140 vezes mais rápida que a força bruta.
+
+O comportamento observado também acompanha a análise teórica.
+
+Na força bruta, dobrar o tamanho da entrada tende a provocar um aumento próximo de quatro vezes no trabalho realizado, devido à complexidade Θ(n²).
+
+Na divisão e conquista, o crescimento é muito menor e compatível com Θ(n log n).
+
+A diferença entre as duas estratégias aumenta conforme o número de pontos cresce.
+
+
+8. COMPARAÇÃO ENTRE TEORIA E EXPERIMENTO
+
+Os experimentos confirmaram o comportamento previsto pela análise assintótica.
+
+No problema do subarranjo máximo, a solução quadrática apresentou crescimento muito superior às versões Θ(n log n) e Θ(n). A solução linear apresentou o melhor desempenho experimental.
+
+No problema do par de pontos mais próximos, a divisão e conquista apresentou uma vantagem cada vez maior sobre a força bruta conforme o tamanho da entrada aumentou.
+
+Para entradas pequenas, diferenças de tempo podem ser menos significativas devido ao custo de chamadas de função, recursão, ordenação e outras operações constantes.
+
+Para entradas maiores, o crescimento assintótico passa a ter maior influência e as soluções de menor complexidade apresentam vantagem clara.
+
+Dessa forma, os resultados obtidos experimentalmente são consistentes com as recorrências e complexidades analisadas teoricamente.
