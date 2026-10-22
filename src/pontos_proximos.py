@@ -27,7 +27,7 @@ def forca_bruta_pontos(pontos):
 
 
 def dividir_pontos(pontos_x, pontos_y):
-    if len(pontos_x) <= 3:
+    if len(pontos_x) <= 20:
         return forca_bruta_pontos(pontos_x)
 
     meio = len(pontos_x) // 2
