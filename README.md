@@ -39,6 +39,7 @@ Foi utilizado o limiar 20 para o caso-base da recursão. Esse valor foi escolhid
 ```text
 Trabalho_AV2_CANA/
 ├── dados/
+│   ├── analise_teorica.txt
 │   ├── casos_teste.txt
 │   └── configuracao_maquina.txt
 ├── resultados/
@@ -72,6 +73,26 @@ Para instalar o Matplotlib:
 
 ```bash
 python -m pip install matplotlib
+```
+
+## Executando o subarranjo máximo
+
+Para executar o programa com uma entrada informada pelo usuário:
+
+```bash
+python src/subarranjo.py
+```
+
+O programa solicita a quantidade de elementos e os valores do vetor separados por espaço.
+
+Exemplo:
+
+```text
+Quantidade de elementos: 5
+Digite os elementos separados por espaço: -2 4 -1 3 -5
+Soma máxima: 6
+Índice inicial: 1
+Índice final: 3
 ```
 
 ## Executando os testes
@@ -130,6 +151,12 @@ A configuração da máquina utilizada nas medições está registrada em:
 
 ```text
 dados/configuracao_maquina.txt
+```
+
+A análise teórica e experimental está registrada em:
+
+```text
+dados/analise_teorica.txt
 ```
 
 ## Resultados

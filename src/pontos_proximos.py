@@ -1,4 +1,5 @@
 import math
+from collections import Counter
 
 
 def distancia(ponto1, ponto2):
@@ -39,11 +40,12 @@ def dividir_pontos(pontos_x, pontos_y):
     esquerda_y = []
     direita_y = []
 
-    pontos_esquerda = set(esquerda_x)
+    contagem_esquerda = Counter(esquerda_x)
 
     for ponto in pontos_y:
-        if ponto in pontos_esquerda:
+        if contagem_esquerda[ponto] > 0:
             esquerda_y.append(ponto)
+            contagem_esquerda[ponto] -= 1
         else:
             direita_y.append(ponto)
 

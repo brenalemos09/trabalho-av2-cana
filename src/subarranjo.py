@@ -125,3 +125,27 @@ def linear(valores):
         )
 
     return melhor
+
+
+def main():
+    n = int(input("Quantidade de elementos: "))
+    valores = list(
+        map(
+            int,
+            input("Digite os elementos separados por espaço: ").split(),
+        )
+    )
+
+    if len(valores) != n:
+        print("A quantidade de elementos informada é diferente de n.")
+        return
+
+    soma, inicio, fim = divisao_conquista(valores)
+
+    print(f"Soma máxima: {soma}")
+    print(f"Índice inicial: {inicio}")
+    print(f"Índice final: {fim}")
+
+
+if __name__ == "__main__":
+    main()
